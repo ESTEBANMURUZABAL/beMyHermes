@@ -1,22 +1,12 @@
 'use strict';
 
 // Journey controller
-angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http',
+angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', 
 	function($scope, $stateParams, $location, Authentication, Journey, Users, $filter, $http) {
-		$scope.authentication = Authentication;
-		$scope.user = Users.query();
-		$scope.currentPage = 1;
-		$scope.pageSize = 10;
-		$scope.offset = 0;
-
-		// Page changed handler
-		$scope.pageChanged = function() {
-			$scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
-		};
-
 
         // Object to store form data
         $scope.journeyObject = {};
+
 
         // function to post joureys
         $scope.postJourney = function() {
@@ -91,28 +81,7 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
                 }
             });
         };
-        $scope.searchByBounds = function() {
-            if ($scope.findData && $scope.findData.geometry && $scope.findData.geometry.bounds) {
-                $http({
-                    method: 'GET',
-                    url: '/api/journeys',
-                    params: {nelng: $scope.findData.geometry.bounds.northeast.lng, swlng: $scope.findData.geometry.bounds.southwest.lng,nelat: $scope.findData.geometry.bounds.northeast.lat, swlat: $scope.findData.geometry.bounds.southwest.lat}
-                }).
-                    success(function(data, status, headers, config) {
-                        console.log(data);
-                        $scope.journeys = data;
-                        $scope.isTypingSearchQuery = false;
-                        $scope.findStartAddressModel = '';
-                        $scope.findData = {};
-                    }).
-                    error(function(data, status, headers, config) {
-                        console.log(data);
-                    })
-            }else{
-                // If no search query load stored journeys
-                $scope.journeys = _commutr.journeys;
-            }
-        };
+
 
         $scope.startMarker = {
             id: 0,

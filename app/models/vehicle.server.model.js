@@ -1,17 +1,16 @@
-'use strict';
 
 /**
- * Module dependencies.
+ * Created by Pratyush on 28-03-2016.
  */
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
 
-/**
- * Vehicle Schema
- */
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 var VehicleSchema = new Schema({
-	// Vehicle model fields   
-	// ...
+	type: {type: String, required: true, index: {unique: true}},
+	png: {type: String, required: true},
+	created_at: {type: Date, default: Date.now()}
 });
 
-mongoose.model('Vehicle', VehicleSchema);
+
+module.exports = mongoose.model('Vehicle', VehicleSchema);
