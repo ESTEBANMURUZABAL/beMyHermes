@@ -7,7 +7,8 @@ angular.module('journey').config(['$stateProvider',
 		$stateProvider.
 		state('add-route', {
 			url: '/routes/add-route',
-			templateUrl: 'modules/journey/views/add-routes.client.view.html'
+			templateUrl: 'modules/journey/views/add-routes.client.view.html',
+			controller: 'JourneyController'
 		}).
 		state('search-routes', {
 			url: '/rides/search-routes',

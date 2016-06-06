@@ -1,7 +1,7 @@
 'use strict';
 
 // Journey controller
-angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', 
+angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http',
 	function($scope, $stateParams, $location, Authentication, Journey, Users, $filter, $http) {
 
         // Object to store form data
