@@ -23,36 +23,36 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             newJourney.end = {};
 
 
-            //newJourney.travelDate.weekly = {
-            //    mon: {
-            //        departureTime: typeof Date,
-            //        arrivalTime: typeof Date
-            //    },
-            //    tue: {
-            //        departureTime: typeof Date,
-            //        arrivalTime: typeof Date
-            //    },
-            //    wed: {
-            //        departureTime: typeof Date,
-            //        arrivalTime: typeof Date
-            //    },
-            //    thu: {
-            //        departureTime: typeof Date,
-            //        arrivalTime: typeof Date
-            //    },
-            //    fri: {
-            //        departureTime: typeof Date,
-            //        arrivalTime: typeof Date
-            //    },
-            //    sat: {
-            //        departureTime: typeof Date,
-            //        arrivalTime: typeof Date
-            //    },
-            //    sun: {
-            //        departureTime: typeof Date,
-            //        arrivalTime: typeof Date
-            //    }
-            //};
+            newJourney.travelDate.weekly = {
+                mon: {
+                    departureTime: typeof Date,
+                    arrivalTime: typeof Date
+                },
+                tue: {
+                    departureTime: typeof Date,
+                    arrivalTime: typeof Date
+                },
+                wed: {
+                    departureTime: typeof Date,
+                    arrivalTime: typeof Date
+                },
+                thu: {
+                    departureTime: typeof Date,
+                    arrivalTime: typeof Date
+                },
+                fri: {
+                    departureTime: typeof Date,
+                    arrivalTime: typeof Date
+                },
+                sat: {
+                    departureTime: typeof Date,
+                    arrivalTime: typeof Date
+                },
+                sun: {
+                    departureTime: typeof Date,
+                    arrivalTime: typeof Date
+                }
+            };
 
             newJourney.start.street = vm.startLocation;
             newJourney.start.lat =  vm.startMap.latitude;
@@ -68,27 +68,27 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             newJourney.end.city = vm.endCity;
             newJourney.end.address = vm.endAddress;
 
-            //if (vm.journeyObject.isWeekly) {
-            //
-            //    newJourney.travelDate.weekly.mon.departureTime = vm.journeyObject.weekly.mon.departureTime;
-            //    newJourney.travelDate.weekly.tue.departureTime = vm.journeyObject.weekly.tue.departureTime;
-            //    newJourney.travelDate.weekly.wed.departureTime = vm.journeyObject.weekly.wed.departureTime;
-            //    newJourney.travelDate.weekly.thu.departureTime = vm.journeyObject.weekly.thu.departureTime;
-            //    newJourney.travelDate.weekly.fri.departureTime = vm.journeyObject.weekly.fri.departureTime;
-            //    newJourney.travelDate.weekly.sat.departureTime = vm.journeyObject.weekly.sat.departureTime;
-            //    newJourney.travelDate.weekly.sun.departureTime = vm.journeyObject.weekly.sun.departureTime;
-            //    newJourney.travelDate.weekly.mon.arrivalTime = vm.journeyObject.weekly.mon.arrivalTime;
-            //    newJourney.travelDate.weekly.tue.arrivalTime = vm.journeyObject.weekly.tue.arrivalTime;
-            //    newJourney.travelDate.weekly.wed.arrivalTime = vm.journeyObject.weekly.wed.arrivalTime;
-            //    newJourney.travelDate.weekly.thu.arrivalTime = vm.journeyObject.weekly.thu.arrivalTime;
-            //    newJourney.travelDate.weekly.fri.arrivalTime = vm.journeyObject.weekly.fri.arrivalTime;
-            //    newJourney.travelDate.weekly.sat.arrivalTime = vm.journeyObject.weekly.sat.arrivalTime;
-            //    newJourney.travelDate.weekly.sun.arrivalTime = vm.journeyObject.weekly.sun.arrivalTime;
-            //} else {
+            if (vm.journeyObject.isWeekly) {
+
+                newJourney.travelDate.weekly.mon.departureTime = vm.journeyObject.weekly.mon.departureTime;
+                newJourney.travelDate.weekly.tue.departureTime = vm.journeyObject.weekly.tue.departureTime;
+                newJourney.travelDate.weekly.wed.departureTime = vm.journeyObject.weekly.wed.departureTime;
+                newJourney.travelDate.weekly.thu.departureTime = vm.journeyObject.weekly.thu.departureTime;
+               newJourney.travelDate.weekly.fri.departureTime = vm.journeyObject.weekly.fri.departureTime;
+               newJourney.travelDate.weekly.sat.departureTime = vm.journeyObject.weekly.sat.departureTime;
+               newJourney.travelDate.weekly.sun.departureTime = vm.journeyObject.weekly.sun.departureTime;
+               newJourney.travelDate.weekly.mon.arrivalTime = vm.journeyObject.weekly.mon.arrivalTime;
+               newJourney.travelDate.weekly.tue.arrivalTime = vm.journeyObject.weekly.tue.arrivalTime;
+               newJourney.travelDate.weekly.wed.arrivalTime = vm.journeyObject.weekly.wed.arrivalTime;
+               newJourney.travelDate.weekly.thu.arrivalTime = vm.journeyObject.weekly.thu.arrivalTime;
+               newJourney.travelDate.weekly.fri.arrivalTime = vm.journeyObject.weekly.fri.arrivalTime;
+               newJourney.travelDate.weekly.sat.arrivalTime = vm.journeyObject.weekly.sat.arrivalTime;
+               newJourney.travelDate.weekly.sun.arrivalTime = vm.journeyObject.weekly.sun.arrivalTime;
+            } else {
                 newJourney.travelDate.isDayOnly = true;
                 newJourney.travelDate.dayOnly.departureTime = vm.journeyObject.dayOnly.departureTime;
                 newJourney.travelDate.dayOnly.arrivalTime = vm.journeyObject.dayOnly.arrivalTime;
-            //}
+            }
             newJourney.availableSeats = vm.journeyObject.availableSeats;
             newJourney.description = vm.journeyObject.description;
             newJourney.suggestedTip = vm.journeyObject.suggestedTip;

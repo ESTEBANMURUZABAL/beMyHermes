@@ -66,15 +66,6 @@ var JourneySchema = new Schema({
         }
 	},
 	travelDate: {
-
-        isWeekly: {
-            type: Boolean,
-            required: false
-        },
-        isDayOnly: {
-            type: Boolean,
-            required: true
-        },
         weekly: {
             mon: {
                 departureTime: {
@@ -140,6 +131,14 @@ var JourneySchema = new Schema({
             arrivalTime: {
                 type: Date
             }
+        },
+        isWeekly: {
+            type: Boolean,
+            required: true
+        },
+        isDayOnly: {
+            type: Boolean,
+            required: true
         }
     },
 	availableSeats: {
