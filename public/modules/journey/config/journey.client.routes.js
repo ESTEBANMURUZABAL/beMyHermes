@@ -5,22 +5,25 @@ angular.module('journey').config(['$stateProvider',
 	function($stateProvider) {
 		// Journey state routing
 		$stateProvider.
-		state('add-route', {
-			url: '/routes/add-route',
-			templateUrl: 'modules/journey/views/add-routes.client.view.html',
+		state('edit-journey', {
+			url: '/journeys/edit-journey',
+			templateUrl: 'modules/journey/views/edit-journey.client.view.html',
 			controller:	'JourneyController'
 		}).
-		state('search-routes', {
-			url: '/rides/search-routes',
-			templateUrl: 'modules/journey/views/search-routes.client.view.html'
+		state('view-journey', {
+			url: '/journeys/view-journey',
+			templateUrl: 'modules/journey/views/view-journey.client.view.html',
+			controller:	'JourneyController'
 		}).
-		state('rides', {
-			url: '/rides',
-			templateUrl: 'modules/journey/views/rides.client.view.html'
+		state('add-journey', {
+			url: '/journeys/add-journey',
+			templateUrl: 'modules/journey/views/add-journey.client.view.html',
+			controller:	'JourneyController'
 		}).
-		state('routes', {
-			url: '/routes',
-			templateUrl: 'modules/journey/views/routes.client.view.html'
+		state('search-journey', {
+			url: '/rides/search-journey',
+			templateUrl: 'modules/journey/views/search-journey.client.view.html',
+			controller:	'JourneyController'
 		});
 	}
 ]);

@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Search journey</h1>
+        <div class="col-md-12">
+            <div style="width: 68%; float:none; height: 100%">
+                <ng-map zoom="14"
+                        center="resistencia, chaco"
+                        style="height:90%" >
+                    <directions
+                            draggable="true"
+                            travel-mode="DRIVING"
+                            origin={{startAddressModel}}
+                            destination={{endAddressModel}}
+                    </directions>
+                </ng-map>
+            </div>
+            <form role="form">
+                <div class="form-group col-md-6">
+                    <label>Origin</label>
+                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin direction"/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Destination</label>
+                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination direction"/>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Routes:</h3>
+                        <ul>
+                            <li>
+
+                            </li>
+                            <li>
+
+                            </li>
+                            <li>
+
+                            </li>
+                            <li>
+
+                            </li>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>filters:</h3>
+                        <input type="checkbox"><br>
+
+                        <input type="checkbox"><br>
+
+                        <input type="checkbox"><br>
+
+                        <input type="checkbox"><br>
+
+                        <input type="checkbox"><br>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+

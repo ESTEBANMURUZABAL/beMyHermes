@@ -6,26 +6,153 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var JourneySchema = new Schema({
-	posted_by: {type: String, required: true, ref: 'User'},
+	posted_by: {
+        type: String,
+        required: true,
+        ref: 'User'
+    },
 	start: {
-		street: {type: String, required: true},
-		area: {type: String, required: true},
-		lat: {type: String, required: true},
-		lng: {type: String, required: true},
-		//city: {type: Schema.ObjectId, required: true, ref: 'City'}
+		street: {
+            type: String,
+            required: true
+        },
+		area: {
+            type: String,
+            required: true
+        },
+		lat: {
+            type: String,
+            required: true
+        },
+		lng: {
+            type: String,
+            required: true
+        },
+		city: {
+            type: Schema.ObjectId,
+            required: true,
+            ref: 'City'
+        },
+        address: {
+            type: String,
+            required: true
+        }
 	},
 	end: {
-		street: {type: String, required: true},
-		area: {type: String, required: true},
-		//city: {type: Schema.ObjectId, required: true, ref: 'City'}
+		street: {
+            type: String,
+            required: true
+        },
+		area: {
+            type: String,
+            required: true
+        },
+        lat: {
+            type: String,
+            required: true
+        },
+        lng: {
+            type: String,
+            required: true
+        },
+		city: {
+            type: Schema.ObjectId,
+            required: true,
+            ref: 'City'
+        },
+        address: {
+            type: String,
+            required: true
+        }
 	},
-	departure: {type: Date, required: true},
-	vehicle: {type: String, required: false, ref: 'Vehicle'},
-	availableSeats: {type: Number, required: true, min: 0},
-	genderPreference: {type: String, default: 'none'},
-	stops: [String],
-	description: String,
-	fare: {type: Number, required: true},
+	travelDate: {
+
+        isWeekly: {
+            type: Boolean,
+            required: false
+        },
+        isDayOnly: {
+            type: Boolean,
+            required: true
+        },
+        weekly: {
+            mon: {
+                departureTime: {
+                    type: Date
+                },
+                arrivalTime: {
+                    type: Date
+                }
+            },
+            tue: {
+                departureTime: {
+                    type: Date
+                },
+                arrivalTime: {
+                    type: Date
+                }
+            },
+            wed: {
+                departureTime: {
+                    type: Date
+                },
+                arrivalTime: {
+                    type: Date
+                }
+            },
+            thu: {
+                departureTime: {
+                    type: Date
+                },
+                arrivalTime: {
+                    type: Date
+                }
+            },
+            fri: {
+                departureTime: {
+                    type: Date
+                },
+                arrivalTime: {
+                    type: Date
+                }
+            },
+            sat: {
+                departureTime: {
+                    type: Date
+                },
+                arrivalTime: {
+                    type: Date
+                }
+            },
+            sun: {
+                departureTime: {
+                    type: Date
+                },
+                arrivalTime: {
+                    type: Date
+                }
+            }
+        },
+        dayOnly: {
+            departureTime: {
+                type: Date
+            },
+            arrivalTime: {
+                type: Date
+            }
+        }
+    },
+	availableSeats: {
+        type: Number,
+        required: true
+    },
+	description: {
+        type: String
+    },
+    suggestedTip: {
+        type: Number,
+        required: true
+    },
 	requested_by: [{
 		id:
 		{
@@ -33,8 +160,14 @@ var JourneySchema = new Schema({
 			required: true,
 			ref: 'User'
 		},
-		seatsRequired: {type: Number, required: true},
-		created_at: {type: Date, default: Date.now()},
+		seatsRequired: {
+            type: Number,
+            required: true
+        },
+		created_at: {
+            type: Date,
+            default: Date.now()
+        }
 	}],
 	accepted_requests: [{
 		id: {
@@ -48,7 +181,7 @@ var JourneySchema = new Schema({
 		},
 		created_at: {
 			type: Date
-		},
+		}
 	}],
 	created_at: {type: Date, default: Date.now()}
 });
@@ -57,118 +190,3 @@ var JourneySchema = new Schema({
 module.exports = mongoose.model('Journey', JourneySchema);
 
 
-
-
-
-//var JourneySchema = new Schema({
-//	posted_by: {
-//		type: String,
-//		required: true,
-//		ref: 'User'
-//	},
-//	start: {
-//		street: {
-//			type: String,
-//			required: true
-//		},
-//		area: {
-//			type: String,
-//			required: true
-//		},
-//		lat: {
-//			type: Number,
-//			default: 0,
-//			trim: true
-//		},
-//		lng: {
-//			type: Number,
-//			default: 0,
-//			trim: true
-//		},
-//		city: {
-//			type: Schema.ObjectId,
-//			required: true,
-//			ref: 'City'
-//		}
-//	},
-//	end: {
-//		street: {
-//			type: String,
-//			required: true
-//		},
-//		area: {
-//			type: String,
-//			required: true
-//		},
-//		lat: {
-//			type: Number,
-//			default: 0,
-//			trim: true
-//		},
-//		lng: {
-//			type: Number,
-//			default: 0,
-//			trim: true
-//		},
-//		city: {
-//			type: Schema.ObjectId,
-//			required: true,
-//			ref: 'City'
-//		}
-//	},
-//	departureDate: {
-//		type: Date,
-//		required: true
-//	},
-//	vehicle: {
-//		type: String,
-//		required: true,
-//		ref: 'Vehicle'
-//	},
-//	availableSeats: {
-//		type: Number,
-//		required: true,
-//		min: 0
-//	},
-//	suggestedTip: {
-//		type: Number,
-//		required: true
-//	},
-//	requested_by: [{
-//		id:
-//		{
-//			type: String,
-//			required: true,
-//			ref: 'User'
-//		},
-//		seatsRequired: {
-//			type: Number,
-//			required: true
-//		},
-//		created_at: {
-//			type: Date,
-//			default: Date.now()
-//		}
-//	}],
-//	accepted_requests: [{
-//		id: {
-//			type: String,
-//			required: true,
-//			ref: 'User'
-//		},
-//		seatsRequired: {
-//			type: Number,
-//			required: true
-//		},
-//		created_at: {
-//			type: Date,
-//            default: Date.now()
-//		}
-//	}],
-//	created_at: {
-//		type: Date,
-//		default: Date.now()
-//	}
-//});
-//
-//mongoose.model('Journey', JourneySchema);
