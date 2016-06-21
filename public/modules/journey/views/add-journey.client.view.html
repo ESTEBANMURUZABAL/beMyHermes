@@ -14,7 +14,8 @@
                     </directions>
                 </ng-map>
             </div>
-            <form role="form row">
+
+            <div role="row">
                 <div class="form-group col-md-6">
                     <label>Origin</label>
                     <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" placeholder="Enter the origin direction" required>
@@ -52,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <form class="row" ng-required="true">
+                <div class="row">
                     <div class="form-group col-md-6">
                         <label>Available seats:</label> {{availableSeats}}<br>
                         <input type="radio" ng-model="availableSeats" value="1"/>1<br>
@@ -66,19 +67,19 @@
                         <input type="radio" ng-model="suggestedTip" value="10"/>$10<br>
                         <input type="radio" ng-model="suggestedTip" value="15"/>$15<br>
                     </div>
-                </form>
+                </div>
+                
                 <div class="form-group text">
                     <label>Description</label><br>
                     <input type="text" ng-model="description">
                 </div>
-
                 <div class="form-group">
                     <button type="submit" class="btn btn-default" ng-click="create()">Create journey</button>
                 </div>
                 <div data-ng-show="error" class="text-danger">
                     <strong data-ng-bind="error"></strong>
                 </div>
-            </form>
+            </div>
         </div>
     </form>
 </div>

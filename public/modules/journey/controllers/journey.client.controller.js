@@ -83,7 +83,7 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
                 };
                 newJourney.isDayOnly = true;
             } else {
-                angular.forEach($scope.weeklyJourney, function(value, key) {
+                angular.forEach($scope.weeklyJourney, function(value) {
                     if(value.selected){
                         newJourney.weeklyJourney = {
                             value: {
