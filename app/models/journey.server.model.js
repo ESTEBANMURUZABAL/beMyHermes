@@ -6,150 +6,138 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var JourneySchema = new Schema({
-	posted_by: {
+
+    posted_by: {
         type: String,
         required: true,
         ref: 'User'
     },
-	start: {
-		street: {
-            type: String,
-            required: true
-        },
-		area: {
-            type: String,
-            required: true
-        },
-		lat: {
-            type: String,
-            required: true
-        },
-		lng: {
-            type: String,
-            required: true
-        },
-		city: {
-            type: Schema.ObjectId,
-            required: true,
-            ref: 'City'
-        },
-        address: {
-            type: String,
-            required: true
-        }
-	},
-	end: {
-		street: {
-            type: String,
-            required: true
-        },
-		area: {
-            type: String,
-            required: true
-        },
-        lat: {
-            type: String,
-            required: true
-        },
-        lng: {
-            type: String,
-            required: true
-        },
-		city: {
-            type: Schema.ObjectId,
-            required: true,
-            ref: 'City'
-        },
-        address: {
-            type: String,
-            required: true
-        }
-	},
-	travelDate: {
-        weekly: {
-            mon: {
-                departureTime: {
-                    type: Date
-                },
-                arrivalTime: {
-                    type: Date
-                }
-            },
-            tue: {
-                departureTime: {
-                    type: Date
-                },
-                arrivalTime: {
-                    type: Date
-                }
-            },
-            wed: {
-                departureTime: {
-                    type: Date
-                },
-                arrivalTime: {
-                    type: Date
-                }
-            },
-            thu: {
-                departureTime: {
-                    type: Date
-                },
-                arrivalTime: {
-                    type: Date
-                }
-            },
-            fri: {
-                departureTime: {
-                    type: Date
-                },
-                arrivalTime: {
-                    type: Date
-                }
-            },
-            sat: {
-                departureTime: {
-                    type: Date
-                },
-                arrivalTime: {
-                    type: Date
-                }
-            },
-            sun: {
-                departureTime: {
-                    type: Date
-                },
-                arrivalTime: {
-                    type: Date
-                }
-            }
-        },
-        dayOnly: {
-            departureTime: {
+    startStreet: {
+        type: String,
+        required: true
+    },
+    startCoordLat: {
+        type: String,
+        required: true
+    },
+    startCoordLng: {
+        type: String,
+        required: true
+    },
+    startCity: {
+        type: String,
+        required: true
+    },
+    startAddress: {
+        type: String,
+        required: true
+    },
+    endStreet: {
+        type: String,
+        required: true
+    },
+    endCoordLat: {
+        type: String,
+        required: true
+    },
+    endCoordLng: {
+        type: String,
+        required: true
+    },
+    endArea: {
+        type: String,
+        required: true
+    },
+    endCity: {
+        type: String,
+        required: true
+    },
+    endAddress: {
+        type: String,
+        required: true
+    },
+    weeklyJourney: {
+        monday : {
+            departureDate : {
                 type: Date
             },
-            arrivalTime: {
+            arrivalDate: {
                 type: Date
             }
         },
-        isWeekly: {
-            type: Boolean,
-            required: true
+        tuesday : {
+            departureDate : {
+                type: Date
+            },
+            arrivalDate: {
+                type: Date
+            }
         },
-        isDayOnly: {
-            type: Boolean,
-            required: true
+        wednesday : {
+            departureDate : {
+                type: Date
+            },
+            arrivalDate: {
+                type: Date
+            }
+        },
+        thursday : {
+            departureDate : {
+                type: Date
+            },
+            arrivalDate: {
+                type: Date
+            }
+        },
+        friday : {
+            departureDate : {
+                type: Date
+            },
+            arrivalDate: {
+                type: Date
+            }
+        },
+        saturday : {
+            departureDate : {
+                type: Date
+            },
+            arrivalDate: {
+                type: Date
+            }
+        },
+        sunday : {
+            departureDate : {
+                type: Date
+            },
+            arrivalDate: {
+                type: Date
+            }
         }
     },
+
+    dayJourney : {
+        departureDate : {
+            type: Date
+        },
+        arrivalDate: {
+            type: Date
+        }
+    },
+
+
+    isDayOnly: {
+        type: Boolean,
+        required: true
+    },
 	availableSeats: {
-        type: Number,
+        type: String,
         required: true
     },
 	description: {
         type: String
     },
     suggestedTip: {
-        type: Number,
+        type: String,
         required: true
     },
 	requested_by: [{
@@ -184,7 +172,6 @@ var JourneySchema = new Schema({
 	}],
 	created_at: {type: Date, default: Date.now()}
 });
-
 
 module.exports = mongoose.model('Journey', JourneySchema);
 

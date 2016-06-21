@@ -4,74 +4,112 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    journey = require('../models/journey.server.model'),
+    Journey = mongoose.model('Journey'),
+    errorHandler = require('./errors.server.controller'),
     _ = require('lodash');
 
-
-
-
-/* To add new journeys . */
-exports.postJourney = (function(req, res, next) {
-    var newJourney = new journey();
-
-    newJourney.start.street = req.body.startLocation;
-    newJourney.start.lat =  req.body.startMap.latitude;
-    newJourney.start.lng =  req.body.startMap.longitude;
-    newJourney.start.area = req.body.startArea;
-    newJourney.start.city = req.body.startCity;
-    newJourney.start.address = req.body.startAddress;
-
-    newJourney.end.street = req.body.endLocation;
-    newJourney.end.lat =  req.body.endMap.latitude;
-    newJourney.start.lng =  req.body.endMap.longitude;
-    newJourney.end.area = req.body.endArea;
-    newJourney.end.city = req.body.endCity;
-    newJourney.end.address = req.body.endAddress;
-
-    if (req.body.journeyObject.weekly) {
-        newJourney.travelDate.isWeekly = true;
-        newJourney.travelDate.weekly.mon.departureTime = req.body.journeyObject.weekly.mon.departureTime;
-        newJourney.travelDate.weekly.tue.departureTime = req.body.journeyObject.weekly.tue.departureTime;
-        newJourney.travelDate.weekly.wed.departureTime = req.body.journeyObject.weekly.wed.departureTime;
-        newJourney.travelDate.weekly.thu.departureTime = req.body.journeyObject.weekly.thu.departureTime;
-        newJourney.travelDate.weekly.fri.departureTime = req.body.journeyObject.weekly.fri.departureTime;
-        newJourney.travelDate.weekly.sat.departureTime = req.body.journeyObject.weekly.sat.departureTime;
-        newJourney.travelDate.weekly.sun.departureTime = req.body.journeyObject.weekly.sun.departureTime;
-        newJourney.travelDate.weekly.mon.arrivalTime = req.body.journeyObject.weekly.mon.arrivalTime;
-        newJourney.travelDate.weekly.tue.arrivalTime = req.body.journeyObject.weekly.tue.arrivalTime;
-        newJourney.travelDate.weekly.wed.arrivalTime = req.body.journeyObject.weekly.wed.arrivalTime;
-        newJourney.travelDate.weekly.thu.arrivalTime = req.body.journeyObject.weekly.thu.arrivalTime;
-        newJourney.travelDate.weekly.fri.arrivalTime = req.body.journeyObject.weekly.fri.arrivalTime;
-        newJourney.travelDate.weekly.sat.arrivalTime = req.body.journeyObject.weekly.sat.arrivalTime;
-        newJourney.travelDate.weekly.sun.arrivalTime = req.body.journeyObject.weekly.sun.arrivalTime;
-    } else {
-        newJourney.travelDate.isDayOnly = true;
-        newJourney.travelDate.dayOnly.departureTime = req.body.journeyObject.dayOnly.departureTime;
-        newJourney.travelDate.dayOnly.arrivalTime = req.body.journeyObject.dayOnly.arrivalTime;
-    }
-    newJourney.availableSeats = req.body.journeyObject.availableSeats;
-    newJourney.description = req.body.journeyObject.description;
-    newJourney.suggestedTip = req.body.journeyObject.suggestedTip;
-    newJourney.posted_by = req.user._id;
-
-
-
-
-    newJourney.save(function(err, journeyDetail) {
-        if (err) {
-            return res.send(err);
-        }
-        req.user.journeys.push(journeyDetail._id);
-        req.user.save(function(err, user) {
-            journeyDetail.populate(function(err) {
-                if (err) {
-                    return res.send({
-                        error: err
+    /**
+     * Show the current journey
+     */
+    exports.read = function(req, res) {
+        Journey.findById(req.params.journeyId).exec(function(err, journey) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                if (!journey) {
+                    return res.status(404).send({
+                        message: 'Journey not found'
                     });
                 }
-                res.send(journeyDetail);
-            });
+                res.json(journey);
+            }
         });
-    });
-});
+    };
+
+    /**
+     * Create a journey
+     */
+    exports.create = function(req, res) {
+        var newJourney = new Journey();
+
+        newJourney.startStreet = req.body.startStreet;
+        newJourney.startCoordLat = req.body.startCoordLat;
+        newJourney.startCoordLng = req.body.startCoordLng;
+        newJourney.startArea = req.body.startArea;
+        newJourney.startCity = req.body.startCity;
+        newJourney.startAddress = req.body.startAddress;
+
+        newJourney.endStreet = req.body.endStreet;
+        newJourney.endCoordLat = req.body.endCoordLat;
+        newJourney.endCoordLng = req.body.endCoordLng;
+        newJourney.endArea = req.body.endArea;
+        newJourney.endCity = req.body.endCity;
+        newJourney.endAddress = req.body.endAddress;
+
+        if (req.body.isDayOnly) {
+            newJourney.dayJourney.departureDate = req.body.dayJourney.departureDate;
+            newJourney.dayJourney.arrivalDate = req.body.dayJourney.arrivalDate;
+        } /*else {
+            for (var dayInWeek in req.body.weeklyJourney) {
+                newJourney.weeklyJourney.dayInWeek.departureDate = req.body.weeklyJourney.dayInWeek.departureDate;
+                newJourney.weeklyJourney.dayInWeek.arrivalDate = req.body.weeklyJourney.dayInWeek.arrivalDate;
+            }
+        }*/
+
+        newJourney.isDayOnly = req.body.isDayOnly;
+        newJourney.availableSeats = req.body.availableSeats;
+        newJourney.description = req.body.description;
+        newJourney.suggestedTip = req.body.suggestedTip;
+
+        newJourney.posted_by = req.user._id;
+
+        newJourney.save(function(err) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.status(201).json(newJourney);
+            }
+        });
+    };
+
+    /**
+     * List of journeys
+     */
+    exports.list = function(req, res) {
+        Journey.find().exec(function(err, journeys) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.json(journeys);
+            }
+
+            /**
+     * journey middleware
+     */
+    exports.journeyByID = function(req, res, next, id) {
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).send({
+                message: 'Journey is invalid'
+            });
+        }
+
+        Journey.findById(id).exec(function(err, journey) {
+            if (err) return next(err);
+            if (!journey) {
+                return res.status(404).send({
+                    message: 'Journey not found'
+                });
+            }
+            req.journey = journey;
+            next();
+        });
+    };});
+    };
 

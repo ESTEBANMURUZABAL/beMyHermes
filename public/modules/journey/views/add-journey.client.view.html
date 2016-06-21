@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <form class="row simple-form">
         <h1>Add a journey</h1>
         <div class="col-md-12">
             <div style="width: 68%; float:none; height: 100%">
@@ -14,154 +14,71 @@
                     </directions>
                 </ng-map>
             </div>
-            <form role="form">
+            <form role="form row">
                 <div class="form-group col-md-6">
                     <label>Origin</label>
-                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" placeholder="Enter the origin direction"/>
+                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" placeholder="Enter the origin direction" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Destination</label>
-                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" placeholder="Enter the destination direction"/>
+                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" placeholder="Enter the destination direction" required>
                 </div>
                 <div class="form-group">
                     <label>Frequency of your journey</label><br>
-                    <div ng-hide="journeyObject.isWeekly" >
-                        <div>
-                            <input type="checkbox" ng-model="journeyObject.isDayOnly">One time only<br>
-                        </div>
-                        <div ng-show="journeyObject.isDayOnly" class="row">
-                            <div class="col-md-6">
-                                <label>Enter the departure date/time<br>
-                                    <input class="form-control" ng-model="journeyObject.dayOnly.departureTime" type="datetime-local">
-                                </label><br/>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Enter the arrival date/time<br>
-                                    <input class="form-control" ng-model="journeyObject.dayOnly.arrivalTime" type="datetime-local">
-                                </label>
+                    <input type="radio" ng-model="frequency" value='isWeekly'> Weekly<br>
+                    <input type="radio" ng-model="frequency" value='isDayOnly'> Only one day<br>
+
+                    <div ng-if="frequency === 'isWeekly'">
+                        <div ng-repeat="dayInWeek in weeklyJourney">
+                            <label>{{dayInWeek.name}} <input ng-model="dayInWeek.selected" value="true" type="radio"></label>
+                            <div class="row" ng-show="dayInWeek.selected == 'true'">
+                                <div class="col-md-3">
+                                    <label>Enter departure date: <input class="form-control" ng-model="dayInWeek.departureDate" type="datetime-local" required></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Enter arrival date: <input class="form-control" ng-model="dayInWeek.arrivalDate" type="datetime-local" required></label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div ng-hide="journeyObject.isDayOnly">
-                        <input type="checkbox" ng-model="journeyObject.isWeekly"> Weekly<br>
-                        <div ng-show="journeyObject.isWeekly">
-                            <input type="checkbox" ng-model="mon"> Monday
-                                <div ng-show="mon" class="row">
-                                    <div class="col-md-6">
-                                        <label>Enter the departure date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.mon.departureTime" type="datetime-local">
-                                        </label><br/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Enter the arrival date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.mon.arrivalTime" type="datetime-local">
-                                        </label>
-                                    </div>
-                                </div><br/>
-                                <input type="checkbox" ng-model="tue"> Tuesday
-                                <div ng-show="tue" class="row">
-                                    <div class="col-md-6">
-                                        <label>Enter the departure date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.tue.departureTime" type="datetime-local">
-                                        </label><br/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Enter the arrival date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.tue.arrivalTime" type="datetime-local">
-                                        </label>
-                                    </div>
-                                </div><br/>
-                                <input type="checkbox" ng-model="wed"> Wednesday
-                                <div ng-show="wed" class="row">
-                                    <div class="col-md-6">
-                                        <label>Enter the departure date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.wed.departureTime" type="datetime-local">
-                                        </label><br/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Enter the arrival date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.wed.arrivalTime" type="datetime-local">
-                                        </label>
-                                    </div>
-                                </div><br/>
-                                <input type="checkbox" ng-model="thu"> Thursday
-                                <div ng-show="thu" class="row">
-                                    <div class="col-md-6">
-                                        <label>Enter the departure date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.thu.departureTime" type="datetime-local">
-                                        </label><br/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Enter the arrival date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.thu.arrivalTime" type="datetime-local">
-                                        </label>
-                                    </div>
-                                </div><br/>
-                                <input type="checkbox" ng-model="fri"> Friday
-                                <div ng-show="fri" class="row">
-                                    <div class="col-md-6">
-                                        <label>Enter the departure date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.fri.departureTime" type="datetime-local">
-                                        </label><br/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Enter the arrival date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.fri.arrivalTime" type="datetime-local">
-                                        </label>
-                                    </div>
-                                </div><br/>
-                                <input type="checkbox" ng-model="sat"> Saturday
-                                <div ng-show="sat" class="row">
-                                    <div class="col-md-6">
-                                        <label>Enter the departure date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.sat.departureTime" type="datetime-local">
-                                        </label><br/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Enter the arrival date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.sat.arrivalTime" type="datetime-local">
-                                        </label>
-                                    </div>
-                                </div><br/>
-                                <input type="checkbox" ng-model="sun"> Sunday
-                                <div ng-show="sun" class="row">
-                                    <div class="col-md-6">
-                                        <label>Enter the departure date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.sun.departureTime" type="datetime-local">
-                                        </label><br/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Enter the arrival date/time<br>
-                                            <input class="form-control" ng-model="journeyObject.weekly.sun.arrivalTime" type="datetime-local">
-                                        </label>
-                                    </div>
-                                </div><br/>
+                    <div ng-if="frequency === 'isDayOnly'">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Enter departure date<input class="form-control" ng-model="dayJourney.departureDate" type="datetime-local"></label>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Enter arrival date<input class="form-control" ng-model="dayJourney.arrivalDate" type="datetime-local"></label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <form class="row" ng-required="true">
                     <div class="form-group col-md-6">
-                        <label>Available Seats: {{journeyObject.availableSeats}}</label><br>
-                        <input type="checkbox" ng-checked="journeyObject.availableSeats=='1'" ng-true-value="'1'" ng-model="journeyObject.availableSeats"> 1<br>
-                        <input type="checkbox" ng-checked="journeyObject.availableSeats=='2'" ng-true-value="'2'" ng-model="journeyObject.availableSeats"> 2<br>
-                        <input type="checkbox" ng-checked="journeyObject.availableSeats=='3'" ng-true-value="'3'" ng-model="journeyObject.availableSeats"> 3<br>
-                        <input type="checkbox" ng-checked="journeyObject.availableSeats=='4'" ng-true-value="'4'" ng-model="journeyObject.availableSeats"> 4<br>
+                        <label>Available seats:</label> {{availableSeats}}<br>
+                        <input type="radio" ng-model="availableSeats" value="1"/>1<br>
+                        <input type="radio" ng-model="availableSeats" value="2"/>2<br>
+                        <input type="radio" ng-model="availableSeats" value="3"/>3<br>
+                        <input type="radio" ng-model="availableSeats" value="4"/>4<br>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Suggested tip {{journeyObject.suggestedTip}}</label><br>
-                        <input type="checkbox" ng-checked="journeyObject.suggestedTip=='5'" ng-true-value="'5'" ng-model="journeyObject.suggestedTip"> $5<br>
-                        <input type="checkbox" ng-checked="journeyObject.suggestedTip=='10'" ng-true-value="'10'" ng-model="journeyObject.suggestedTip"> $10<br>
-                        <input type="checkbox" ng-checked="journeyObject.suggestedTip=='15'" ng-true-value="'15'" ng-model="journeyObject.suggestedTip"> $15<br>
+                        <label>Suggested tip:</label> {{suggestedTip}}<br>
+                        <input type="radio" ng-model="suggestedTip" value="5"/>$5<br>
+                        <input type="radio" ng-model="suggestedTip" value="10"/>$10<br>
+                        <input type="radio" ng-model="suggestedTip" value="15"/>$15<br>
                     </div>
-                </div>
+                </form>
                 <div class="form-group text">
-                <label>Description</label><br>
-                    <input type="text" ng-model="journeyObject.description">
+                    <label>Description</label><br>
+                    <input type="text" ng-model="description">
                 </div>
-                <button type="submit" class="btn btn-default" ng-click="postJourney()">Create journey</button>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default" ng-click="create()">Create journey</button>
+                </div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
             </form>
         </div>
-    </div>
+    </form>
 </div>
-
-

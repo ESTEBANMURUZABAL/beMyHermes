@@ -21,7 +21,7 @@ angular.module('journey').config(['$stateProvider',
 			controller:	'JourneyController'
 		}).
 		state('search-journey', {
-			url: '/rides/search-journey',
+			url: '/journeys/search-journey',
 			templateUrl: 'modules/journey/views/search-journey.client.view.html',
 			controller:	'JourneyController'
 		});
