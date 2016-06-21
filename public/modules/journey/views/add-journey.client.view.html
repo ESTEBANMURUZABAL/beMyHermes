@@ -34,10 +34,10 @@
                             <label>{{dayInWeek.name}} <input ng-model="dayInWeek.selected" value="true" type="radio"></label>
                             <div class="row" ng-show="dayInWeek.selected == 'true'">
                                 <div class="col-md-3">
-                                    <label>Enter departure date: <input class="form-control" ng-model="dayInWeek.departureDate" type="datetime-local" required></label>
+                                    <label>Enter departure date: <input class="form-control" ng-model="dayInWeek.departureDate" type="datetime-local"></label>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Enter arrival date: <input class="form-control" ng-model="dayInWeek.arrivalDate" type="datetime-local" required></label>
+                                    <label>Enter arrival date: <input class="form-control" ng-model="dayInWeek.arrivalDate" type="datetime-local"></label>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                         <input type="radio" ng-model="suggestedTip" value="15"/>$15<br>
                     </div>
                 </div>
-                
+
                 <div class="form-group text">
                     <label>Description</label><br>
                     <input type="text" ng-model="description">

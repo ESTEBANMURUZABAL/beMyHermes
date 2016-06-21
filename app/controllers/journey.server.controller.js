@@ -48,21 +48,28 @@ var mongoose = require('mongoose'),
         newJourney.endCity = req.body.endCity;
         newJourney.endAddress = req.body.endAddress;
 
-        if (req.body.isDayOnly) {
-            newJourney.dayJourney.departureDate = req.body.dayJourney.departureDate;
-            newJourney.dayJourney.arrivalDate = req.body.dayJourney.arrivalDate;
-        } /*else {
-            for (var dayInWeek in req.body.weeklyJourney) {
-                newJourney.weeklyJourney.dayInWeek.departureDate = req.body.weeklyJourney.dayInWeek.departureDate;
-                newJourney.weeklyJourney.dayInWeek.arrivalDate = req.body.weeklyJourney.dayInWeek.arrivalDate;
-            }
-        }*/
+        if(req.body.isDayOnly) {
+            newJourney.dayJourney = {
+                departureDate : req.body.dayJourney.departureDate,
+                arrivalDate : req.body.dayJourney.arrivalDate
+            };
+        } else {
+            angular.forEach(req.body.weeklyJourney, function(value) {
+                if(value.selected){
+                    newJourney.weeklyJourney = {
+                        value: {
+                            departureDate: req.body.weeklyJourney.value.departureDate,
+                            arrivalDate: req.body.weeklyJourney.value.arrivalDate
+                        }
+                    }
+                }
+            });
+        }
 
         newJourney.isDayOnly = req.body.isDayOnly;
         newJourney.availableSeats = req.body.availableSeats;
         newJourney.description = req.body.description;
         newJourney.suggestedTip = req.body.suggestedTip;
-
         newJourney.posted_by = req.user._id;
 
         newJourney.save(function(err) {
