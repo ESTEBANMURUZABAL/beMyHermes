@@ -1,85 +1,84 @@
-<div class="container-fluid">
-    <form class="row simple-form">
-        <h1>Add a journey</h1>
-        <div class="col-md-12">
-            <div style="width: 68%; float:none; height: 100%">
-                <ng-map zoom="14"
-                        center="resistencia, chaco"
-                        style="height:90%" >
-                    <directions
-                            draggable="true"
-                            travel-mode="DRIVING"
-                            origin={{startAddressModel}}
-                            destination={{endAddressModel}}
-                    </directions>
-                </ng-map>
+<div class="container-fluid background-color">
+    <h1 class="title">Add a journey</h1>
+    <div class="add-journey-map">
+        <ng-map zoom="14"
+                center="resistencia, chaco"
+                style="height:90%" >
+            <directions
+                    draggable="true"
+                    travel-mode="DRIVING"
+                    origin={{startAddressModel}}
+                    destination={{endAddressModel}}
+            </directions>
+        </ng-map>
+    </div>
+    <form>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Origin</label>
+                <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" placeholder="Enter the origin direction" required>
             </div>
-
-            <div role="row">
-                <div class="form-group col-md-6">
-                    <label>Origin</label>
-                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" placeholder="Enter the origin direction" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Destination</label>
-                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" placeholder="Enter the destination direction" required>
-                </div>
-                <div class="form-group">
-                    <label>Frequency of your journey</label><br>
-                    <input type="radio" ng-model="frequency" value='isWeekly'> Weekly<br>
-                    <input type="radio" ng-model="frequency" value='isDayOnly'> Only one day<br>
-
-                    <div ng-if="frequency === 'isWeekly'">
-                        <div ng-repeat="dayInWeek in weeklyJourney">
-                            <label>{{dayInWeek.name}} <input ng-model="dayInWeek.selected" value="true" type="radio"></label>
-                            <div class="row" ng-show="dayInWeek.selected == 'true'">
-                                <div class="col-md-3">
-                                    <label>Enter departure date: <input class="form-control" ng-model="dayInWeek.departureDate" type="datetime-local"></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Enter arrival date: <input class="form-control" ng-model="dayInWeek.arrivalDate" type="datetime-local"></label>
-                                </div>
-                            </div>
-                        </div>
+            <div class="form-group col-md-4">
+                <label>Destination</label>
+                <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" placeholder="Enter the destination direction" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <label>Frequency of your journey</label><br>
+                <input type="radio" ng-model="frequency" value='isWeekly'> Weekly<br>
+                <input type="radio" ng-model="frequency" value='isDayOnly'> Only one day<br>
+            </div>
+            <div ng-if="frequency === 'isWeekly'">
+                <div class="row" ng-repeat="dayInWeek in weeklyJourney">
+                    <div class="col-md-3">
+                         <input ng-model="dayInWeek.selected" type="checkbox"> <label>{{dayInWeek.name}}</label>
                     </div>
-                    <div ng-if="frequency === 'isDayOnly'">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>Enter departure date<input class="form-control" ng-model="dayJourney.departureDate" type="datetime-local"></label>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Enter arrival date<input class="form-control" ng-model="dayJourney.arrivalDate" type="datetime-local"></label>
-                            </div>
+                    <div ng-if="dayInWeek.selected">
+                        <div class="col-md-3">
+                            <label>Enter departure date: <input class="form-control" ng-model="dayInWeek.departureDate" type="datetime-local"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Enter arrival date: <input class="form-control" ng-model="dayInWeek.arrivalDate" type="datetime-local"></label>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Available seats:</label> {{availableSeats}}<br>
-                        <input type="radio" ng-model="availableSeats" value="1"/>1<br>
-                        <input type="radio" ng-model="availableSeats" value="2"/>2<br>
-                        <input type="radio" ng-model="availableSeats" value="3"/>3<br>
-                        <input type="radio" ng-model="availableSeats" value="4"/>4<br>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Suggested tip:</label> {{suggestedTip}}<br>
-                        <input type="radio" ng-model="suggestedTip" value="5"/>$5<br>
-                        <input type="radio" ng-model="suggestedTip" value="10"/>$10<br>
-                        <input type="radio" ng-model="suggestedTip" value="15"/>$15<br>
-                    </div>
+            </div>
+            <div class="row" ng-if="frequency === 'isDayOnly'">
+                <div class="col-md-3">
+                    <label>Enter departure date<input class="form-control" ng-model="dayJourney.departureDate" type="datetime-local"></label>
                 </div>
-
-                <div class="form-group text">
-                    <label>Description</label><br>
-                    <input type="text" ng-model="description">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default" ng-click="create()">Create journey</button>
-                </div>
-                <div data-ng-show="error" class="text-danger">
-                    <strong data-ng-bind="error"></strong>
+                <div class="col-md-3">
+                    <label>Enter arrival date<input class="form-control" ng-model="dayJourney.arrivalDate" type="datetime-local"></label>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Available seats:</label> {{availableSeats}}<br>
+                <input type="radio" ng-model="availableSeats" value="1"/>1<br>
+                <input type="radio" ng-model="availableSeats" value="2"/>2<br>
+                <input type="radio" ng-model="availableSeats" value="3"/>3<br>
+                <input type="radio" ng-model="availableSeats" value="4"/>4<br>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Suggested tip:</label> {{suggestedTip}}<br>
+                <input type="radio" ng-model="suggestedTip" value="5"/>$5<br>
+                <input type="radio" ng-model="suggestedTip" value="10"/>$10<br>
+                <input type="radio" ng-model="suggestedTip" value="15"/>$15<br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group text col-md-6">
+                <label>Description</label><br>
+                <input type="text" ng-model="description">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default" ng-click="create()">Create journey</button>
+        </div>
+        <div data-ng-show="error" class="text-danger">
+            <strong data-ng-bind="error"></strong>
         </div>
     </form>
 </div>
