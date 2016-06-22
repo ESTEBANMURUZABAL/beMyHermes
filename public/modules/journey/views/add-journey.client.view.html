@@ -16,11 +16,11 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label>Origin</label>
-                <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" placeholder="Enter the origin direction" required>
+                <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin direction" required>
             </div>
             <div class="form-group col-md-4">
                 <label>Destination</label>
-                <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" placeholder="Enter the destination direction" required>
+                <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination direction" required>
             </div>
         </div>
         <div class="form-group">

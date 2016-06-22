@@ -1,8 +1,8 @@
-<div class="container-fluid" data-ng-init="findAllJourneys()">
+<div class="container-fluid background-color" data-ng-init="findAllJourneys()">
     <div class="row">
-        <h1>Search journey</h1>
+        <h1 class="title">Search journey</h1>
         <div class="col-md-12">
-            <div style="width: 68%; float:none; height: 100%">
+            <div class="add-journey-map">
                 <ng-map zoom="14"
                         center="resistencia, chaco"
                         style="height:90%" >
@@ -15,13 +15,17 @@
                 </ng-map>
             </div>
             <form role="form">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label>Origin</label>
-                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin direction"/>
+                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin city"/>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label>Destination</label>
-                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination direction"/>
+                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination city"/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>When</label>
+                    <input type="date" class="form-control" placeholder="Enter the date of the travel">
                 </div>
                 <div class="row">
                     <div class="col-md-6">

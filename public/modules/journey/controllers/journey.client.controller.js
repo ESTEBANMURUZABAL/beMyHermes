@@ -90,7 +90,7 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
                                 departureDate: $scope.weeklyJourney.value.departureDate,
                                 arrivalDate: $scope.weeklyJourney.value.arrivalDate
                             }
-                        }
+                        };
                     }
                 });
             }

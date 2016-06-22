@@ -61,7 +61,7 @@ var mongoose = require('mongoose'),
                             departureDate: req.body.weeklyJourney.value.departureDate,
                             arrivalDate: req.body.weeklyJourney.value.arrivalDate
                         }
-                    }
+                    };
                 }
             });
         }

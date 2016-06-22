@@ -114,7 +114,6 @@ var JourneySchema = new Schema({
             }
         }
     },
-
     dayJourney : {
         departureDate : {
             type: Date
@@ -123,8 +122,6 @@ var JourneySchema = new Schema({
             type: Date
         }
     },
-
-
     isDayOnly: {
         type: Boolean,
         required: true
