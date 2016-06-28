@@ -47,24 +47,10 @@ exports.create = function(req, res) {
     newJourney.endArea = req.body.endArea;
     newJourney.endCity = req.body.endCity;
     newJourney.endAddress = req.body.endAddress;
-
-    if(req.body.isDayOnly) {
-        newJourney.dayJourney = {
-            departureDate : req.body.dayJourney.departureDate,
-            arrivalDate : req.body.dayJourney.arrivalDate
-        };
-    } else {
-        angular.forEach(req.body.weeklyJourney, function(value) {
-            if(value.selected){
-                newJourney.weeklyJourney = {
-                    value: {
-                        departureDate: req.body.weeklyJourney.value.departureDate,
-                        arrivalDate: req.body.weeklyJourney.value.arrivalDate
-                    }
-                };
-            }
-        });
-    }
+    newJourney.journeyDate = {
+        departureTime : req.body.journeyDate.departureTime,
+        arrivalTime : req.body.journeyDate.arrivalTime
+    };
     newJourney.isDayOnly = req.body.isDayOnly;
     newJourney.availableSeats = req.body.availableSeats;
     newJourney.description = req.body.description;

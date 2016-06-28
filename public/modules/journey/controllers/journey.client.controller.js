@@ -5,56 +5,11 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
     function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http) {
 
         $scope.journeyObject = {};
-        $scope.frequency = '';
 
-        $scope.weeklyJourney = {
-            monday : {
-                name: 'Monday',
-                departureDate : '',
-                arrivalDate : '',
-                selected: false
-            },
-            tuesday : {
-                name: 'Tuesday',
-                departureDate : '',
-                arrivalDate : '',
-                selected: false
-                },
-            wednesday : {
-                name: 'Wednesday',
-                departureDate : '',
-                arrivalDate : '',
-                selected: false
-            },
-            thursday : {
-                name: 'Thursday',
-                departureDate : '',
-                arrivalDate : '',
-                selected: false
-            },
-            friday : {
-                name: 'Friday',
-                departureDate : '',
-                arrivalDate : '',
-                selected: false
-            },
-            saturday : {
-                name: 'Saturday',
-                departureDate : '',
-                arrivalDate : '',
-                selected: false
-            },
-            sunday : {
-                name: 'Sunday',
-                departureDate : '',
-                arrivalDate : '',
-                selected: false
-            }
-        };
-
-        $scope.dayJourney = {
-            departureDate : '',
-            arrivalDate : ''
+        $scope.journeyDate = {
+            date : new Date(),
+            departureTime : new Date(),
+            arrivalTime : new Date()
         };
 
         // function to post journeys
@@ -76,24 +31,10 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             newJourney.endCity = $scope.endCity;
             newJourney.endAddress = $scope.endAddress;
 
-            if($scope.frequency) {
-                newJourney.dayJourney = {
-                    departureDate : $scope.dayJourney.departureDate,
-                    arrivalDate : $scope.dayJourney.arrivalDate
-                };
-                newJourney.isDayOnly = true;
-            } else {
-                angular.forEach($scope.weeklyJourney, function(value) {
-                    if(value.selected){
-                        newJourney.weeklyJourney = {
-                            value: {
-                                departureDate: $scope.weeklyJourney.value.departureDate,
-                                arrivalDate: $scope.weeklyJourney.value.arrivalDate
-                            }
-                        };
-                    }
-                });
-            }
+            newJourney.journeyDate = {
+                departureTime : $scope.journeyDate.departureTime,
+                arrivalTime : $scope.journeyDate.arrivalTime
+            };
 
             newJourney.availableSeats = $scope.availableSeats;
             newJourney.description = $scope.description;

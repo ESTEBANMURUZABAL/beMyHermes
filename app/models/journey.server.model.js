@@ -56,75 +56,13 @@ var JourneySchema = new Schema({
         type: String,
         required: true
     },
-    weeklyJourney: {
-        monday : {
-            departureDate : {
-                type: Date
-            },
-            arrivalDate: {
-                type: Date
-            }
-        },
-        tuesday : {
-            departureDate : {
-                type: Date
-            },
-            arrivalDate: {
-                type: Date
-            }
-        },
-        wednesday : {
-            departureDate : {
-                type: Date
-            },
-            arrivalDate: {
-                type: Date
-            }
-        },
-        thursday : {
-            departureDate : {
-                type: Date
-            },
-            arrivalDate: {
-                type: Date
-            }
-        },
-        friday : {
-            departureDate : {
-                type: Date
-            },
-            arrivalDate: {
-                type: Date
-            }
-        },
-        saturday : {
-            departureDate : {
-                type: Date
-            },
-             arrivalDate: {
-                 type: Date
-            }
-        },
-        sunday : {
-            departureDate : {
-                type: Date
-            },
-            arrivalDate: {
-                type: Date
-            }
-        }
-    },
-    dayJourney : {
-        departureDate : {
+    journeyDate : {
+        departureTime : {
             type: Date
         },
-        arrivalDate: {
+        arrivalTime: {
             type: Date
         }
-    },
-    isDayOnly: {
-        type: Boolean,
-        required: true
     },
 	availableSeats: {
         type: String,

@@ -24,32 +24,12 @@
             </div>
         </div>
         <div class="form-group">
-            <div>
-                <label>Frequency of your journey</label><br>
-                <input type="radio" ng-model="frequency" value='isWeekly'> Weekly<br>
-                <input type="radio" ng-model="frequency" value='isDayOnly'> Only one day<br>
-            </div>
-            <div ng-if="frequency === 'isWeekly'">
-                <div class="row" ng-repeat="dayInWeek in weeklyJourney">
-                    <div class="col-md-3">
-                         <input ng-model="dayInWeek.selected" type="checkbox"> <label>{{dayInWeek.name}}</label>
-                    </div>
-                    <div ng-if="dayInWeek.selected">
-                        <div class="col-md-3">
-                            <label>Enter departure date: <input class="form-control" ng-model="dayInWeek.departureDate" type="datetime-local"></label>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Enter arrival date: <input class="form-control" ng-model="dayInWeek.arrivalDate" type="datetime-local"></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" ng-if="frequency === 'isDayOnly'">
+            <div class="row">
                 <div class="col-md-3">
-                    <label>Enter departure date<input class="form-control" ng-model="dayJourney.departureDate" type="datetime-local"></label>
+                    <label>Enter departure time<input class="form-control" ng-model="journeyDate.departureTime" type="datetime-local"></label>
                 </div>
                 <div class="col-md-3">
-                    <label>Enter arrival date<input class="form-control" ng-model="dayJourney.arrivalDate" type="datetime-local"></label>
+                    <label>Enter arrival time<input class="form-control" ng-model="journeyDate.arrivalTime" type="datetime-local"></label>
                 </div>
             </div>
         </div>

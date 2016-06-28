@@ -11,7 +11,7 @@ module.exports = function(app) {
 
     app.route('/journeys/:journeyId')
         .get(journey.journeyByID);
-
+    
     app.route('/journeys')
         .get(journey.searchForDate);
 
