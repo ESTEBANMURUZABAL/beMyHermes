@@ -1,67 +1,79 @@
 <div class="container-fluid background-color" data-ng-init="findAllJourneys()">
-    <div class="row">
+
         <h1 class="title">Search journey</h1>
-        <div class="col-md-12">
-            <div class="add-journey-map">
-                <ng-map zoom="14"
-                        center="resistencia, chaco"
-                        style="height:90%" >
-                    <directions
-                            draggable="true"
-                            travel-mode="DRIVING"
-                            origin={{startAddressModel}}
-                            destination={{endAddressModel}}
-                    </directions>
-                </ng-map>
+
+        <div class="add-journey-map">
+            <ng-map zoom="14"
+                    center="resistencia, chaco"
+                    style="height:90%" >
+                <directions
+                        draggable="true"
+                        travel-mode="DRIVING"
+                        origin={{startAddressModel}}
+                        destination={{endAddressModel}}
+                </directions>
+            </ng-map>
+        </div>
+
+        <form role="form" class="row">
+            <div class="form-group col-md-3">
+                <label>Origin</label>
+                <input type="text" class="form-control" ng-change="fetchFindStart()" ng-model="findStartAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin city"/>
             </div>
-            <form role="form">
-                <div class="form-group col-md-3">
-                    <label>Origin</label>
-                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin city"/>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>Destination</label>
-                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination city"/>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>When</label>
-                    <input type="date" class="form-control" placeholder="Enter the date of the travel">
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>Routes:</h3>
-                        <div class="list-group">
-                            <a data-ng-repeat="journey in journeys" class="list-group-item">
-                                <h4 class="list-group-item-heading" data-ng-bind="journey.startAddress"></h4>
-                                From:<span data-ng-bind="journey.startCity"></span>
-                                To:<span data-ng-bind="journey.endCity"></span>
-                                Driver:<span data-ng-bind="journey.posted_by.name"></span>
-                                <div ng-if="journey.isDayOnly">
-                                    Date:<span data-ng-bind="journey.dayOnlyDepartureTime"></span>
-                                    Date:<span data-ng-bind="journey.dayOnlyArrivalTime"></span>
-                                </div>
-                                <div ng-if="journey.isDayOnly">
-                                    Date:<span data-ng-bind="journey."></span>
-                                </div>
+            <div class="form-group col-md-3">
+                <label>Destination</label>
+                <input type="text" class="form-control" ng-change="fetchFindEnd()" ng-model="findEndAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination city"/>
+            </div>
+            <div class="form-group col-md-2">
+                <label>When</label>
+                <input type="date" class="form-control" ng-change="searchByDate()" ng-model="searchDateModel" placeholder="Enter the date of the travel">
+            </div>
+        </form>
 
-                            </a>
+        <div class="row">
+            <div class="form-group col-md-1">
+                <input class="form-control" ng-click="searchData()" type="submit" value="Search"/>
+            </div>
+        </div>
+
+        <!--
+        <div class="form-group">
+            <input type="text" ng-model="search" typeahead="category as category.name for category in categories | filter:$viewValue | limitTo:8" class="form-control" placeholder="Search Category...">
+        </div>
+         -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Routes:</h3>
+                <div class="list-group">
+                    <a data-ng-repeat="journey in journeys | limitTo:2" class="list-group-item">
+                        From:<span data-ng-bind="journey.startCity"></span><br>
+                        To:<span data-ng-bind="journey.endCity"></span><br>
+                        Driver:<span data-ng-bind="journey.posted_by.name"></span><br>
+                        <div ng-if="journey.isDayOnly">
+                            Date:<span data-ng-bind="journey.dayJourney.departureDate"></span><br>
+                            Date:<span data-ng-bind="journey.dayJourney.arrivalDate"></span><br>
                         </div>
-                    </div>
+                        <div ng-if="!journey.isDayOnly">
+                            Date:<span data-ng-bind=""></span>
+                        </div>
 
-                    <div class="col-md-6">
-                        <h3>filters:</h3>
-                        <input type="checkbox"><br>
-
-                        <input type="checkbox"><br>
-
-                        <input type="checkbox"><br>
-
-                        <input type="checkbox"><br>
-
-                        <input type="checkbox"><br>
-                    </div>
+                    </a>
                 </div>
+            </div>
 
+            <div class="col-md-6">
+                <h3>filters:</h3>
+                <input type="checkbox"><br>
+
+                <input type="checkbox"><br>
+
+                <input type="checkbox"><br>
+
+                <input type="checkbox"><br>
+
+                <input type="checkbox"><br>
+            </div>
         </div>
     </div>
 </div>

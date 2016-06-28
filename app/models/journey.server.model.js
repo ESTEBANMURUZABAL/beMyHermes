@@ -101,8 +101,8 @@ var JourneySchema = new Schema({
             departureDate : {
                 type: Date
             },
-            arrivalDate: {
-                type: Date
+             arrivalDate: {
+                 type: Date
             }
         },
         sunday : {

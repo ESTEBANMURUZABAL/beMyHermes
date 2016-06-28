@@ -136,14 +136,5 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             });
         };
 
-        // Find all journeys
-        $scope.findAllJourneys = function() {
-            $scope.journeys = Journey.query();
-        };
-
-        // Search for date
-        $scope.journeySearchForDate = function(journey) {
-            $location.path('journey/' + journey._id);
-        };
     }
 ]);

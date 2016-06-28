@@ -23,7 +23,7 @@ angular.module('journey').config(['$stateProvider',
 		state('search-journey', {
 			url: '/journeys/search-journey',
 			templateUrl: 'modules/journey/views/search-journey.client.view.html',
-			controller:	'JourneyController'
+			controller:	'SearchController'
 		});
 	}
 ]);
