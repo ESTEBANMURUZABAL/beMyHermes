@@ -40,6 +40,9 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             newJourney.description = $scope.description;
             newJourney.suggestedTip = $scope.suggestedTip;
             newJourney.$save(function (response) {
+                $location.path('journeys/' + response._id);
+
+                // Clear form fields
 
             }, function (errorResponse) {
                 console.log(errorResponse);
@@ -74,6 +77,42 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
                     $scope.endCity = response.data.results[0].formatted_address.split(',')[len - 3];
                     $scope.endAddress = response.data.results[0].formatted_address;
                 }
+            });
+        };
+
+        // Find existing journey
+        $scope.findOne = function() {
+            $scope.journey = Journey.get({
+                journeyId: $stateParams.journeyId
+            });
+        };
+
+
+        // Remove existing Category
+        $scope.removeJourney = function(journey) {
+            if ( journey ) {
+                journey.$remove();
+
+                for (var i in $scope.journeys) {
+                    if ($scope.journeys [i] === journey) {
+                        $scope.journeys.splice(i, 1);
+                    }
+                }
+            } else {
+                $scope.journey.$remove(function() {
+                    $location.path('journeys');
+                });
+            }
+        };
+
+        // Update existing journey
+        $scope.update = function() {
+            var journey = $scope.journey;
+
+            journey.$update(function() {
+                $location.path('journeys/' + journey._id);
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
             });
         };
 

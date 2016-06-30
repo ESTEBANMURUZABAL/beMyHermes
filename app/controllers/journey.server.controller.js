@@ -12,20 +12,7 @@ var mongoose = require('mongoose'),
  * Show the current journey
  */
 exports.read = function(req, res) {
-    Journey.findById(req.params.journeyId).exec(function(err, journey) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            if (!journey) {
-                return res.status(404).send({
-                    message: 'Journey not found'
-                });
-            }
-            res.json(journey);
-        }
-    });
+    res.json(req.journey);
 };
 
 /**
@@ -82,10 +69,40 @@ exports.list = function(req, res) {
     });
 };
 
+exports.update = function(req, res) {
+    var journey = req.journey;
+
+    journey = _.extend(journey, req.body);
+
+    journey.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.json(journey);
+        }
+    });
+};
+
+exports.delete = function(req, res) {
+    var journey = req.journey;
+
+    journey.remove(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.json(journey);
+        }
+    });
+};
+
  /**
  * journey middleware
  */
-exports.journeyByID = function(req, res, next, id) {
+exports.getByID = function(req, res, next, id) {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).send({

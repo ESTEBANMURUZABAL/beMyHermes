@@ -106,9 +106,14 @@ angular.module('journey').controller('SearchController', ['$scope','Journey', 'U
 			$scope.journeys = Journey.query();
 		};
 
-		// Search for date
-		$scope.journeySearchForDate = function(journey) {
-			$location.path('journey/' + journey._id);
+        // Search for a journey
+		$scope.journeySearch = function(journey) {
+			$location.path('journeys/' + journey._id);
 		};
+
+        $scope.go = function ( path ) {
+            $location.path( path );
+        };
+
 	}
 ]);

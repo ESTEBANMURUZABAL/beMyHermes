@@ -1,14 +1,38 @@
-<section data-ng-init="findJourney()">
-    <div class="page-header">
-        <h1 data-ng-bind="journey.description"></h1>
+<div class="container-fluid background-color" data-ng-init="findOne()">
+    <h1>View Journey</h1>
+    <div class="add-journey-map">
+        <ng-map zoom="14"
+                center="resistencia, chaco"
+                style="height:90%" >
+            <directions
+                    draggable="true"
+                    travel-mode="DRIVING"
+                    origin={{journey.startAddress}}
+                    destination={{journey.endAddress}}
+            </directions>
+        </ng-map>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
 
+            <a class="btn btn-primary" href="/#!/journeys/{{journey._id}}/edit">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn btn-primary" data-ng-click="removeJourney()">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+            <a class="btn btn-primary bla" data-ng-click="removeJourney()">
+                <i>Request a ride</i>
+            </a><br>
+
+            <label>From: </label><span data-ng-bind="journey.startAddress"></span><br>
+            <label>To: </label><span data-ng-bind="journey.endAddress"></span><br>
+            <label>Posted by:</label><span data-ng-bind="journey._id.name"></span><br>
+            <label>Departure time: </label><span data-ng-bind="journey.departureTime | departureTime:'MM/dd/yyyy'"></span><br>
+            <label>Arrival time: </label><span data-ng-bind="journey.arrivalTime"></span><br>
+            <label>Suggested tip: $</label><span data-ng-bind="journey.suggestedTip"></span><br>
+            <label>Available Seats: </label><span data-ng-bind="journey.availableSeats"></span><br>
+            <label>Description: </label><span data-ng-bind="journey.description"></span><br>
+        </div>
     </div>
-    <div class="pull-right">
-        <a class="btn btn-primary" href="/#!/journeys/{{journey._id}}/edit">
-            <i class="glyphicon glyphicon-edit"></i>
-        </a>
-        <a class="btn btn-primary" data-ng-click="removeJourney()">
-            <i class="glyphicon glyphicon-trash"></i>
-        </a>
-    </div>
-</section>
+</div>

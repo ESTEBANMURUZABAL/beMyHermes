@@ -4,17 +4,22 @@ module.exports = function(app) {
 	var journey = require('../../app/controllers/journey.server.controller');
 
     app.route('/journeys')
-        .get(journey.list);
-
-    app.route('/journeys')
+        .get(journey.list)
         .post(journey.create);
 
+    app.route('/journeys/:journeyId/edit')
+        .get(journey.read)
+        .put(journey.update)
+        .delete(journey.delete);
+
     app.route('/journeys/:journeyId')
-        .get(journey.journeyByID);
-    
+        .get(journey.read)
+        .put(journey.update)
+        .delete(journey.delete);
+
     app.route('/journeys')
         .get(journey.searchForDate);
 
     // Finish by binding the article middleware
-    app.param('journeyId', journey.journeyByID);
+    app.param('journeyId', journey.getByID);
 };

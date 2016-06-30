@@ -12,53 +12,55 @@
             </directions>
         </ng-map>
     </div>
-    <form>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label>Origin</label>
-                <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin direction" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Destination</label>
-                <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination direction" required>
-            </div>
-        </div>
-        <div class="form-group">
+    <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <fieldset>
             <div class="row">
-                <div class="col-md-3">
-                    <label>Enter departure time<input class="form-control" ng-model="journeyDate.departureTime" type="datetime-local"></label>
+                <div class="form-group col-md-4">
+                    <label>Origin</label>
+                    <input type="text" class="form-control" ng-change="fetchStartAddress()" ng-model="startAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the origin direction" required>
                 </div>
-                <div class="col-md-3">
-                    <label>Enter arrival time<input class="form-control" ng-model="journeyDate.arrivalTime" type="datetime-local"></label>
+                <div class="form-group col-md-4">
+                    <label>Destination</label>
+                    <input type="text" class="form-control" ng-change="fetchEndAddress()" ng-model="endAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter the destination direction" required>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Available seats:</label> {{availableSeats}}<br>
-                <input type="radio" ng-model="availableSeats" value="1"/>1<br>
-                <input type="radio" ng-model="availableSeats" value="2"/>2<br>
-                <input type="radio" ng-model="availableSeats" value="3"/>3<br>
-                <input type="radio" ng-model="availableSeats" value="4"/>4<br>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Enter departure time<input class="form-control" ng-model="journeyDate.departureTime" type="datetime-local" required></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Enter arrival time<input class="form-control" ng-model="journeyDate.arrivalTime" type="datetime-local" required></label>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-                <label>Suggested tip:</label> {{suggestedTip}}<br>
-                <input type="radio" ng-model="suggestedTip" value="5"/>$5<br>
-                <input type="radio" ng-model="suggestedTip" value="10"/>$10<br>
-                <input type="radio" ng-model="suggestedTip" value="15"/>$15<br>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Available seats:</label> {{availableSeats}}<br>
+                    <input type="radio" ng-model="availableSeats" value="1" required/>1<br>
+                    <input type="radio" ng-model="availableSeats" value="2"/>2<br>
+                    <input type="radio" ng-model="availableSeats" value="3"/>3<br>
+                    <input type="radio" ng-model="availableSeats" value="4"/>4<br>
+                </div>
+                <div class="form-group col-md-6" ng-model="suggestedTip" required>
+                    <label>Suggested tip: $</label> {{suggestedTip}}<br>
+                    <input type="radio" ng-model="suggestedTip" value="5"/>$5<br>
+                    <input type="radio" ng-model="suggestedTip" value="10"/>$10<br>
+                    <input type="radio" ng-model="suggestedTip" value="15"/>$15<br>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group text col-md-6">
-                <label>Description</label><br>
-                <input type="text" ng-model="description">
+            <div class="row">
+                <div class="form-group text col-md-6">
+                    <label>Description</label><br>
+                    <input type="text" ng-model="description">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default" ng-click="create()">Create journey</button>
-        </div>
-        <div data-ng-show="error" class="text-danger">
-            <strong data-ng-bind="error"></strong>
-        </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" name=""/>
+            </div>
+            <div data-ng-show="error" class="text-danger">
+                <strong data-ng-bind="error"></strong>
+            </div>
+        </fieldset>
     </form>
 </div>

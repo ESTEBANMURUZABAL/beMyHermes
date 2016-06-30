@@ -1,3 +1,54 @@
-<section>
-	This is the Edit journey
+<section data-ng-init="findOne()">
+	<div class="page-header">
+		<h1>Edit Journey</h1>
+	</div>
+	<div class="col-md-12">
+		<form class="form-horizontal" data-ng-submit="update()" novalidate>
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label" for="startCity">From:</label>
+					<div class="controls">
+						<input type="text" data-ng-model="journey.startCity" id="startCity" class="form-control" placeholder="startCity" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="endCity">To:</label>
+					<div class="controls">
+						<input type="text" data-ng-model="journey.endCity" id="endCity" class="form-control" placeholder="endCity" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="departureTime">Departure Time:</label>
+					<div class="controls">
+						<input type="datetime-local" data-ng-model="journey.departureTime" id="departureTime" class="form-control" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="arrivalTime">Arrival Time:</label>
+					<div class="controls">
+						<input type="datetime-local" data-ng-model="journey.arrivalTime" id="arrivalTime" class="form-control" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="suggestedTip">Suggested tip:</label>
+					<div class="controls">
+						<input type="text" data-ng-model="journey.suggestedTip" id="suggestedTip" class="form-control" placeholder="Suggested tip" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="availableSeats">Available seats:</label>
+					<div class="controls">
+						<input type="text" data-ng-model="journey.availableSeats" id="availableSeats" class="form-control" placeholder="available seats" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Update" class="btn btn-default">
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+
+			</fieldset>
+		</form>
+	</div>
 </section>

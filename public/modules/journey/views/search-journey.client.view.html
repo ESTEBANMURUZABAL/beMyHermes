@@ -32,33 +32,23 @@
 
         <div class="row">
             <div class="form-group col-md-1">
-                <input class="form-control" ng-click="searchData()" type="submit" value="Search"/>
+                <a class="btn btn-primary bla" data-ng-click="searchData()">
+                    <i>Search</i>
+                </a>
             </div>
         </div>
-
-        <!--
-        <div class="form-group">
-            <input type="text" ng-model="search" typeahead="category as category.name for category in categories | filter:$viewValue | limitTo:8" class="form-control" placeholder="Search Category...">
-        </div>
-         -->
 
         <div class="row">
             <div class="col-md-6">
                 <h3>Routes:</h3>
-                <div class="list-group">
-                    <a data-ng-repeat="journey in journeys | limitTo:2" class="list-group-item">
-                        From:<span data-ng-bind="journey.startCity"></span><br>
-                        To:<span data-ng-bind="journey.endCity"></span><br>
-                        Driver:<span data-ng-bind="journey.posted_by.name"></span><br>
-                        <div ng-if="journey.isDayOnly">
-                            Date:<span data-ng-bind="journey.dayJourney.departureDate"></span><br>
-                            Date:<span data-ng-bind="journey.dayJourney.arrivalDate"></span><br>
-                        </div>
-                        <div ng-if="!journey.isDayOnly">
-                            Date:<span data-ng-bind=""></span>
-                        </div>
-
+                <div data-ng-repeat="journey in journeys" class="list-group-item">
+                    <label>From: </label><span data-ng-bind="journey.startAddress"></span><br>
+                    <label>To: </label><span data-ng-bind="journey.endAddress"></span><br>
+                    <label>Posted by: </label><span data-ng-bind="journey._id"></span><br>
+                    <a class="btn btn-primary bla" data-ng-href="#!/journeys/{{journey._id}}">
+                        <i>Details</i>
                     </a>
+
                 </div>
             </div>
 
