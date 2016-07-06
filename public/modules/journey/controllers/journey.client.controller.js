@@ -1,10 +1,26 @@
 'use strict';
 
 // Journey controller
-angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http',
-    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http) {
+angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', 'ModalService',
+    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http, ModalService) {
 
-        $scope.journeyObject = {};
+        $scope.showComplex = function() {
+
+            ModalService.showModal({
+                templateUrl: 'modal-no-seats-available.client.view.html',
+                controller: 'ModalController',
+                inputs: {
+                    title: ' More Complex Example'
+                }
+            }).then(function(modal) {
+                modal.element.modal();
+                modal.close.then(function(result) {
+                    $scope.complexResult  = 'Name: ' + result.name + ', age: ' + result.age;
+                });
+            });
+
+        };
+
 
         $scope.journeyDate = {
             date : new Date(),
@@ -40,6 +56,7 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             newJourney.description = $scope.description;
             newJourney.suggestedTip = $scope.suggestedTip;
             newJourney.$save(function (response) {
+
                 $location.path('journeys/' + response._id);
 
                 // Clear form fields

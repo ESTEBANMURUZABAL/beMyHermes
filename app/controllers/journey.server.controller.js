@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
     Journey = mongoose.model('Journey'),
+    User = mongoose.model('User'),
     errorHandler = require('./errors.server.controller'),
     _ = require('lodash');
 
@@ -43,16 +44,83 @@ exports.create = function(req, res) {
     newJourney.description = req.body.description;
     newJourney.suggestedTip = req.body.suggestedTip;
     newJourney.posted_by = req.user._id;
-    newJourney.save(function(err) {
-        if (err) {
+
+    newJourney.save(function(err, newJourney) {
+        if (err || !newJourney) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.status(201).json(newJourney);
+            User.findOne({
+                _id: req.user._id
+            }, function(err, user) {
+                if (err) {
+                    return res.send({
+                        error: err
+                    });
+                }
+
+                console.log(user);
+                user.journeys.push(newJourney._id);
+                user.save(function (err, user) {
+                    if (err || !user) {
+                        return res.send({
+                            error: err
+                        });
+                    }
+                    res.status(201).json(newJourney);
+                });
+            });
         }
     });
 };
+
+
+
+/*
+req.user.journeys.push(newJourney._id);
+req.user.save(function (err, user) {
+    if (err || !user) {
+        return res.send({
+            error: err
+        });
+    }
+    res.status(201).json(newJourney);
+});
+*/
+
+
+/*
+
+journey.save(function(err, journey) {
+    if (err || !journey) {
+        return res.send({
+            error: err
+        });
+    } else {
+        User.findOne({
+            _id: req.params.uid
+        }, function(err, user) {
+            if (err) {
+                return res.send({
+                    error: err
+                });
+            }
+            user.journeys.push(req.params.id);
+            user.save(function(err, user) {
+                if (err || !user) {
+                    return res.send({
+                        error: err
+                    });
+                }
+                var notification = "Your request has been accepted";
+                notify(res, req, req.params.uid, req.params.id, notification);
+                return res.send(journey);
+            });
+        });
+    }
+});
+*/
 
 /**
  * List of journeys

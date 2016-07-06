@@ -33,7 +33,8 @@ module.exports = {
 				'public/lib/lodash/dist/lodash.min.js',
 				'public/lib/angular.min.js',
 				'public/lib/angular-simple-logger/dist/angular-simple-logger.min.js',
-				'public/lib/angular-google-maps/dist/angular-google-maps.js'
+				'public/lib/angular-google-maps/dist/angular-google-maps.js',
+				'node_modules/angular-modal-service/src/angular-modal-service.js'
 			]
 		},
 		css: [

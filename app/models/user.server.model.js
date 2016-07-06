@@ -37,10 +37,6 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
-	journeys: [{
-		type: String,
-		ref: 'Journey'
-	}],
 	displayName: {
 		type: String,
 		trim: true
@@ -93,10 +89,22 @@ var UserSchema = new Schema({
 	resetPasswordExpires: {
 		type: Date
 	},
-	isDriver: {
-		type: Boolean,
-		//required: 'Please define type of user'
-	}
+	/* Journey data */
+	id: {
+		type: String,
+		required: false,
+		index: {
+			unique: true
+		}
+	},
+	profile_pic: {
+		type: String,
+		required: false
+	},
+	journeys: [{
+		type: String,
+		ref: 'Journey'
+	}]
 });
 
 /**

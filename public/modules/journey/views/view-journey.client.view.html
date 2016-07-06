@@ -21,15 +21,15 @@
             <a class="btn btn-primary" data-ng-click="removeJourney()">
                 <i class="glyphicon glyphicon-trash"></i>
             </a>
-            <a class="btn btn-primary bla" data-ng-click="removeJourney()">
+            <a class="btn btn-primary bla" data-ng-click="">
                 <i>Request a ride</i>
             </a><br>
 
             <label>From: </label><span data-ng-bind="journey.startAddress"></span><br>
             <label>To: </label><span data-ng-bind="journey.endAddress"></span><br>
-            <label>Posted by:</label><span data-ng-bind="journey._id.name"></span><br>
-            <label>Departure time: </label><span data-ng-bind="journey.departureTime | departureTime:'MM/dd/yyyy'"></span><br>
-            <label>Arrival time: </label><span data-ng-bind="journey.arrivalTime"></span><br>
+            <label>Posted by:</label><span data-ng-bind="journey._id"></span><br>
+            <label>Departure time: </label><span data-ng-bind="journey.departureTime.toString()"></span><br>
+            <label>Arrival time: </label><span data-ng-bind="journey.arrivalTime.toDateString()"></span><br>
             <label>Suggested tip: $</label><span data-ng-bind="journey.suggestedTip"></span><br>
             <label>Available Seats: </label><span data-ng-bind="journey.availableSeats"></span><br>
             <label>Description: </label><span data-ng-bind="journey.description"></span><br>

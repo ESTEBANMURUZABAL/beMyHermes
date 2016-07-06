@@ -22,6 +22,13 @@ exports.userByID = function(req, res, next, id) {
 };
 
 /**
+ * Show the current user
+ */
+exports.read = function(req, res) {
+	res.json(req.user);
+};
+
+/**
  * Require login routing middleware
  */
 exports.requiresLogin = function(req, res, next) {

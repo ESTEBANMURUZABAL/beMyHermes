@@ -54,3 +54,20 @@ exports.update = function(req, res) {
 exports.me = function(req, res) {
 	res.json(req.user || null);
 };
+
+/**
+ * List of users
+ */
+exports.list = function(req, res) {
+	User.find().exec(function(err, users) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(users);
+		}
+	});
+};
+
+

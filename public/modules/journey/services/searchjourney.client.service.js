@@ -1,15 +1,12 @@
 'use strict';
 
-angular.module('journey').factory('SearchJourneyService', [
-	function() {
-		this.searchData = function() {
-		var searchData;
-		};
-		// Public API
-		return {
-			someMethod: function() {
-				return true;
+angular.module('journey').factory('SearchJourneyService', ['$resource',
+	function($resource) {
+		return $resource('journeys', {
+				read: {
+					method: 'GET'
+				}
 			}
-		};
+		);
 	}
 ]);
