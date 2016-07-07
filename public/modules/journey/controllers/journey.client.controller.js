@@ -1,32 +1,12 @@
 'use strict';
 
 // Journey controller
-angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', 'ModalService',
-    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http, ModalService) {
-
-        $scope.showComplex = function() {
-
-            ModalService.showModal({
-                templateUrl: 'modal-no-seats-available.client.view.html',
-                controller: 'ModalController',
-                inputs: {
-                    title: ' More Complex Example'
-                }
-            }).then(function(modal) {
-                modal.element.modal();
-                modal.close.then(function(result) {
-                    $scope.complexResult  = 'Name: ' + result.name + ', age: ' + result.age;
-                });
-            });
-
-        };
+angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', 'popupService', '$window',
+    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http, popupService, $window) {
 
 
-        $scope.journeyDate = {
-            date : new Date(),
-            departureTime : new Date(),
-            arrivalTime : new Date()
-        };
+
+
 
         // function to post journeys
         $scope.create = function() {
@@ -46,6 +26,13 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             newJourney.endArea = $scope.endArea;
             newJourney.endCity = $scope.endCity;
             newJourney.endAddress = $scope.endAddress;
+
+            /* DELETE IF IT KEEPS WORKING
+            $scope.journeyDate = {
+                date : new Date(),
+                departureTime : new Date(),
+                arrivalTime : new Date()
+            };*/
 
             newJourney.journeyDate = {
                 departureTime : $scope.journeyDate.departureTime,
@@ -107,18 +94,22 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
 
         // Remove existing Category
         $scope.removeJourney = function(journey) {
-            if ( journey ) {
-                journey.$remove();
+            if (journey) {
+                if(popupService.showPopup('Really want to delete this?')){
+                    journey.$remove();
 
-                for (var i in $scope.journeys) {
-                    if ($scope.journeys [i] === journey) {
-                        $scope.journeys.splice(i, 1);
+                    for (var i in $scope.journeys) {
+                        if ($scope.journeys [i] === journey) {
+                            $scope.journeys.splice(i, 1);
+                        }
                     }
                 }
             } else {
-                $scope.journey.$remove(function() {
-                    $location.path('journeys');
-                });
+                if(popupService.showPopup('Really want to delete this?')) {
+                    $scope.journey.$remove(function () {
+                        $location.path('journeys');
+                    });
+                }
             }
         };
 
