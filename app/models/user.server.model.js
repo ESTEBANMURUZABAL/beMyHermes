@@ -89,7 +89,6 @@ var UserSchema = new Schema({
 	resetPasswordExpires: {
 		type: Date
 	},
-	/* Journey data */
 	id: {
 		type: String,
 		required: false,
@@ -103,7 +102,8 @@ var UserSchema = new Schema({
 	},
 	journeys: [{
 		type: String,
-		ref: 'Journey'
+		ref: 'Journey',
+		required: false
 	}]
 });
 

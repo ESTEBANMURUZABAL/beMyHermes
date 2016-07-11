@@ -1,16 +1,49 @@
 'use strict';
 
 // Journey controller
-angular.module('journey').controller('JourneyController', ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', 'popupService', '$window',
-    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http, popupService, $window) {
+angular.module('journey').controller('JourneyController',
+    ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', /*'$uibModal', '$log',*/
+    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http/*, $uibModal, $log*/) {
 
+      /*  //MODAL
+        $scope.items = ['item1', 'item2', 'item3'];
 
+        $scope.animationsEnabled = true;
 
+        $scope.open = function (size) {
 
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'MyModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
 
-        // function to post journeys
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.toggleAnimation = function () {
+            $scope.animationsEnabled = !$scope.animationsEnabled;
+        };
+
+        //MODAL*/
+
+        $scope.journeyDate = {
+            date : new Date(),
+            departureTime : new Date(),
+            arrivalTime : new Date()
+        };
+
         $scope.create = function() {
-            $scope.postError = '';
             var newJourney = new Journey();
 
             newJourney.startStreet = $scope.startStreet;
@@ -27,26 +60,15 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             newJourney.endCity = $scope.endCity;
             newJourney.endAddress = $scope.endAddress;
 
-            /* DELETE IF IT KEEPS WORKING
-            $scope.journeyDate = {
-                date : new Date(),
-                departureTime : new Date(),
-                arrivalTime : new Date()
-            };*/
-
             newJourney.journeyDate = {
                 departureTime : $scope.journeyDate.departureTime,
                 arrivalTime : $scope.journeyDate.arrivalTime
             };
-
             newJourney.availableSeats = $scope.availableSeats;
             newJourney.description = $scope.description;
             newJourney.suggestedTip = $scope.suggestedTip;
+
             newJourney.$save(function (response) {
-
-                $location.path('journeys/' + response._id);
-
-                // Clear form fields
 
             }, function (errorResponse) {
                 console.log(errorResponse);
@@ -91,11 +113,9 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
             });
         };
 
-
         // Remove existing Category
         $scope.removeJourney = function(journey) {
             if (journey) {
-                if(popupService.showPopup('Really want to delete this?')){
                     journey.$remove();
 
                     for (var i in $scope.journeys) {
@@ -103,13 +123,10 @@ angular.module('journey').controller('JourneyController', ['$scope', '$statePara
                             $scope.journeys.splice(i, 1);
                         }
                     }
-                }
             } else {
-                if(popupService.showPopup('Really want to delete this?')) {
                     $scope.journey.$remove(function () {
                         $location.path('journeys');
                     });
-                }
             }
         };
 
