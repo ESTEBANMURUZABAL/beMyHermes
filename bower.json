@@ -16,8 +16,5 @@
     "angular-ui-router": "~0.2.11",
     "ngmap": "^1.17.3",
     "angular-google-maps": "^2.3.3"
-  },
-  "resolutions": {
-    "angular": "~1.2.29"
   }
 }

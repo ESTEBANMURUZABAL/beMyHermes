@@ -41,16 +41,19 @@
         <div class="row">
             <div class="col-md-6">
                 <h3>Routes:</h3>
-                <div data-ng-repeat="journey in journeys" class="list-group-item">
+                <div data-ng-repeat="journey in journeys | limitTo: offset - journeys.length | limitTo: pageSize" class="list-group-item">
                     <label>From: </label><span data-ng-bind="journey.startAddress"></span><br>
                     <label>To: </label><span data-ng-bind="journey.endAddress"></span><br>
                     <label>Posted by: </label><span data-ng-bind="journey._id"></span><br>
                     <a class="btn btn-primary bla" data-ng-href="#!/journeys/{{journey._id}}">
                         <i>Details</i>
                     </a>
-
                 </div>
+                <!-- this is the paging control -->
+                <pagination total-items="journeys.length" ng-model="currentPage" ng-change="pageChanged()" max-size="pageSize" ng-show="journeys.length > pageSize"></pagination>
+                <!-- end -->
             </div>
+
 
             <div class="col-md-6">
                 <h3>filters:</h3>

@@ -2,17 +2,17 @@
 
 // Journey controller
 angular.module('journey').controller('JourneyController',
-    ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', /*'$uibModal', '$log',*/
-    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http/*, $uibModal, $log*/) {
+    ['$scope', '$stateParams', '$location', 'Authentication', 'Journey', 'Users', '$filter', '$http', /*'$Modal', '$log',*/
+    function($scope , $stateParams, $location, Authentication, Journey, Users, $filter, $http/*, $Modal, $log*/) {
 
-      /*  //MODAL
+        //MODAL
         $scope.items = ['item1', 'item2', 'item3'];
 
         $scope.animationsEnabled = true;
 
         $scope.open = function (size) {
 
-            var modalInstance = $uibModal.open({
+            var modalInstance = $Modal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'MyModalContent.html',
                 controller: 'ModalInstanceCtrl',
@@ -35,7 +35,7 @@ angular.module('journey').controller('JourneyController',
             $scope.animationsEnabled = !$scope.animationsEnabled;
         };
 
-        //MODAL*/
+        //MODAL
 
         $scope.journeyDate = {
             date : new Date(),
@@ -69,7 +69,7 @@ angular.module('journey').controller('JourneyController',
             newJourney.suggestedTip = $scope.suggestedTip;
 
             newJourney.$save(function (response) {
-
+                $location.path('/journeys/' + newJourney._id);
             }, function (errorResponse) {
                 console.log(errorResponse);
                 $scope.error = errorResponse.data.message;

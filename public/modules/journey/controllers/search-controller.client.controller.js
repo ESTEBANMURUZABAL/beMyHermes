@@ -3,6 +3,16 @@
 angular.module('journey').controller('SearchController', ['$scope','Journey', 'Users', '$filter', '$location', '$http', 'SearchJourneyService',
 	function($scope, Journey, Users, $filter, $location, $http, SearchJourneyService) {
 
+		// PAGINATION
+		$scope.currentPage = 1;
+		$scope.pageSize = 10;
+		$scope.offset = 0;
+
+		$scope.pageChanged = function() {
+			$scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
+		};
+		// PAGINATION
+
 		$scope.fetchFindStart = function() {
 			var address = $scope.findStartAddressModel.replace(' ', '%20');
 			$http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).then(function(response) {
@@ -22,6 +32,7 @@ angular.module('journey').controller('SearchController', ['$scope','Journey', 'U
 				}
 			});
 		};
+/*
 
         $scope.searchData = function() {
             if(!$scope.findStartAddressModel) {
@@ -32,74 +43,7 @@ angular.module('journey').controller('SearchController', ['$scope','Journey', 'U
                 this.searchByBounds($scope.findOriginData, $scope.findDestinationData);
             }
         };
-
-        $scope.searchByDate = function(searchDateModel) {
-            $http({
-                method: 'GET',
-                url: '/journeys',
-                params: {journeyDate: searchDateModel }
-            }).
-                success(function(data, status, headers, config) {
-                    console.log(data);
-                    $scope.journeys = data;
-                    $scope.searchDateModel = '';
-
-                }).
-                error(function(data, status, headers, config) {
-                    console.log(data);
-                });
-        };
-
-
-        $scope.searchByBounds = function(journeyData) {
-            if (journeyData && journeyData.geometry && journeyData.geometry.bounds) {
-                $http({
-                    method: 'GET',
-                    url: '/api/journeys',
-                    params: {nelng: journeyData.geometry.bounds.northeast.lng, swlng: journeyData.geometry.bounds.southwest.lng,nelat: journeyData.geometry.bounds.northeast.lat, swlat: journeyData.geometry.bounds.southwest.lat}
-                }).
-                    success(function(data, status, headers, config) {
-                        console.log(data);
-                        $scope.journeys = data;
-                        $scope.isTypingSearchQuery = false;
-                        $scope.findStartAddressModel = '';
-                        $scope.findEndAddressModel = '';
-                        $scope.findOriginData = '';
-                    }).
-                    error(function(data, status, headers, config) {
-                        console.log(data);
-                    });
-            }
-        };
-
-        $scope.searchByBounds = function(originData, destinationData ) {
-            if (originData && originData.geometry && originData.geometry.bounds) {
-                $http({
-                    method: 'GET',
-                    url: '/journeys',
-                    params: {nelng: originData.geometry.bounds.northeast.lng, swlng: originData.geometry.bounds.southwest.lng,nelat: originData.geometry.bounds.northeast.lat, swlat: originData.geometry.bounds.southwest.lat}
-                })
-                    .success(function() {
-                        $http({
-                            method: 'GET',
-                            url: '/journeys',
-                            params: {nelng: destinationData.geometry.bounds.northeast.lng, swlng: destinationData.geometry.bounds.southwest.lng,nelat: destinationData.geometry.bounds.northeast.lat, swlat: destinationData.geometry.bounds.southwest.lat}
-                        });
-                    })
-                        .success(function(data, status, headers, config) {
-                            console.log(data);
-                            $scope.journeys = data;
-                            $scope.isTypingSearchQuery = false;
-                            $scope.findStartAddressModel = '';
-                            $scope.findEndAddressModel = '';
-                            $scope.findOriginData = '';
-                            $scope.findDestinationData = '';
-                        }).
-                            error(function(data, status, headers, config) {
-                                console.log(data);
-                            });
-            }
-        };
+*/
 
 		// Find all journeys
 		$scope.findAllJourneys = function() {
